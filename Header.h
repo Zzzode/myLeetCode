@@ -10,6 +10,7 @@
 #include <iostream>
 #include <map>
 #include <set>
+#include <stack>
 #include <string>
 #include <unordered_map>
 #include <unordered_set>
@@ -19,7 +20,7 @@ using namespace std;
 
 // Definition for a binary tree node.
 struct TreeNode {
-  int       val;
+  int val;
   TreeNode* left;
   TreeNode* right;
   TreeNode(int x) : val(x), left(NULL), right(NULL) {}

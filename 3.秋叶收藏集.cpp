@@ -30,9 +30,6 @@
  * dp[1][i] 可以从上一个纯红状态变化过来，也可以从上一个本身状态变化过来
  * dp[2][i] 可以从上一个红黄状态变化过来，也可以从上一个本身状态变化过来
  * 所以最后要求的答案即：dp[2].back()
- *
- * 作者：'ikaruga'
- * 链接：https://leetcode-cn.com/problems/UlBDOe/solution/ulbdoe-by-ikaruga/
  */
 
 #include "Header.h"
