@@ -7,6 +7,7 @@
 
 #include <algorithm>
 #include <functional>
+#include <hash_map>
 #include <iostream>
 #include <map>
 #include <set>
