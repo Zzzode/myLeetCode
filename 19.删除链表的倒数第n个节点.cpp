@@ -3,7 +3,7 @@
  *
  * [19] 删除链表的倒数第N个节点
  */
-
+#include "Header.h"
 // @lc code=start
 // Definition for singly-linked list.
 // struct ListNode {
@@ -14,21 +14,21 @@
 
 class Solution {
 public:
-    ListNode* removeNthFromEnd(ListNode* head, int n) {
-        ListNode* ptr = head;
-        ListNode* delayN = head;
-        int count = 0;
+  ListNode* removeNthFromEnd(ListNode* head, int n) {
+    ListNode* ptr = head;
+    ListNode* delayN = head;
+    int count = 0;
 
-        while(ptr->next != NULL){ // length > 1
-            if(count < n)
-                count++;
-            else
-                delayN = delayN->next;
-            ptr = ptr->next;
-        }
-        count == n ? delayN->next = delayN->next->next : head = head->next;
-
-        return head;
+    while (ptr->next != NULL) {  // length > 1
+      if (count < n)
+        count++;
+      else
+        delayN = delayN->next;
+      ptr = ptr->next;
     }
+    count == n ? delayN->next = delayN->next->next : head = head->next;
+
+    return head;
+  }
 };
 // @lc code=end
