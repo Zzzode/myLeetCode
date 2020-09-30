@@ -39,27 +39,20 @@ using namespace std;
 class Solution {
 public:
   int minimumOperations(string leaves) {
-    vector<vector<int>> dp(3, vector<int>(leaves.size(), 0));
+    vector<int> tmp(3);
+    for (int i = 0; i < 3; i++)
+      tmp[i] = leaves[i] != 'r';
+    int dp_0 = tmp[0] + tmp[1] + tmp[2];
+    int dp_1 = tmp[0] + 1 - tmp[2];
+    int dp_2 = tmp[0] + 1 - tmp[1] + tmp[2];
 
-    for (int i = 0; i < leaves.size(); i++) {
-      if (i < 1)
-        dp[0][i] = (leaves[i] != 'r');
-      else
-        dp[0][i] = dp[0][i - 1] + (leaves[i] != 'r');
-
-      if (i < 1)
-        dp[1][i] = dp[0][i];
-      else
-        dp[1][i] = min(dp[0][i - 1] + (leaves[i] != 'y'),
-                       dp[1][i - 1] + (leaves[i] != 'y'));
-
-      if (i < 2)
-        dp[2][i] = dp[1][i];
-      else
-        dp[2][i] = min(dp[1][i - 1] + (leaves[i] != 'r'),
-                       dp[2][i - 1] + (leaves[i] != 'r'));
+    for (int i = 3; i < leaves.length(); i++) {
+      int notr = leaves[i] != 'r';
+      dp_2 = (dp_1 < dp_2 ? dp_1 : dp_2) + notr;
+      dp_1 = (dp_0 < dp_1 ? dp_0 : dp_1) + 1 - notr;
+      dp_0 = dp_0 + notr;
     }
 
-    return dp[2].back();
+    return dp_2;
   }
 };
