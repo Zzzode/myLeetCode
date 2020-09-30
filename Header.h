@@ -35,7 +35,7 @@ struct ListNode {
 };
 
 class Node {
-public:
+ public:
   int val;
   Node* left;
   Node* right;

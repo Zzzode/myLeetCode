@@ -82,7 +82,7 @@
  * };
  */
 class Solution {
-public:
+ public:
   inline TreeNode* insertIntoBST(TreeNode* root, int val) {
     if (!root)
       return new TreeNode(val);

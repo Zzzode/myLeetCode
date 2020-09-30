@@ -37,7 +37,7 @@
 using namespace std;
 
 class Solution {
-public:
+ public:
   int minimumOperations(string leaves) {
     vector<int> tmp(3);
     for (int i = 0; i < 3; i++)
