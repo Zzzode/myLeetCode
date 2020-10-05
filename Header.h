@@ -6,6 +6,7 @@
 #define LEETCODE_HEADER_H
 
 #include <algorithm>
+#include <cmath>
 #include <functional>
 #include <hash_map>
 #include <iostream>
