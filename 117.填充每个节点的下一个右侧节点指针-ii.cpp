@@ -66,11 +66,10 @@ public:
 */
 
 class Solution {
-public:
+ public:
   Node* connect(Node* root) {
     queue<Node*> q({root});
-    if (root)
-      bfs(q);
+    if (root) bfs(q);
     return root;
   }
 
@@ -82,10 +81,8 @@ public:
         node = q.front();
         q.pop();
 
-        if (node->left)
-          q.push(node->left);
-        if (node->right)
-          q.push(node->right);
+        if (node->left) q.push(node->left);
+        if (node->right) q.push(node->right);
         if (i != size - 1) {
           node->next = q.front();
           node = q.front();
