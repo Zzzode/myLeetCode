@@ -60,7 +60,6 @@ class Solution {
         }
         sum -= nums[j];
       }
-      sum -= nums[i];
     }
     for (auto& a : se) ans.emplace_back(a);
     return ans;
