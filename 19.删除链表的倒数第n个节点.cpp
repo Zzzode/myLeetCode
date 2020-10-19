@@ -13,15 +13,14 @@
 // };
 
 class Solution {
-public:
+ public:
   ListNode* removeNthFromEnd(ListNode* head, int n) {
     ListNode* ptr = head;
     ListNode* delayN = head;
     int count = 0;
 
     while (ptr->next != NULL) {  // length > 1
-      if (count < n)
-        count++;
+      if (count < n) count++;
       else
         delayN = delayN->next;
       ptr = ptr->next;
