@@ -8,7 +8,7 @@
 #include <algorithm>
 #include <cmath>
 #include <functional>
-#include <hash_map>
+//#include <hash_map>
 #include <iostream>
 #include <map>
 #include <queue>
@@ -26,13 +26,13 @@ struct TreeNode {
   int val;
   TreeNode* left;
   TreeNode* right;
-  TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+  explicit TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
 };
 
 struct ListNode {
   int val;
   ListNode* next;
-  ListNode(int x) : val(x), next(nullptr) {}
+  explicit ListNode(int x) : val(x), next(nullptr) {}
 };
 
 class Node {
@@ -42,9 +42,10 @@ class Node {
   Node* right;
   Node* next;
 
-  Node() : val(0), left(NULL), right(NULL), next(NULL) {}
+  Node() : val(0), left(nullptr), right(nullptr), next(nullptr) {}
 
-  Node(int _val) : val(_val), left(NULL), right(NULL), next(NULL) {}
+  explicit Node(int _val)
+      : val(_val), left(nullptr), right(nullptr), next(nullptr) {}
 
   Node(int _val, Node* _left, Node* _right, Node* _next)
       : val(_val), left(_left), right(_right), next(_next) {}
