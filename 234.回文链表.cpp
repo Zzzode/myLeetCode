@@ -45,7 +45,7 @@
 class Solution {
  public:
   bool isPalindrome(ListNode* head) {
-    if (!head || !head->next) return true;
+    if (!head || !head->next) return;
 
     int count = 0;
     ListNode *p = head, *l = head, *r = head;
