@@ -21,15 +21,11 @@ class Solution {
   }
 };
 
-int main() {
-  Solution solution;
-  int ans = 0;
-  v1<int> arr{37, 69, 3, 74, 46};
-  v2<int> pieces{{37, 69, 3, 74, 46}};
-  int n = 0, bricks = 0, ladders = 0;
-  //  ans = solution.furthestBuilding(arr, bricks, ladders);
-  ans = solution.countVowelStrings(33);
-  cout << ans << endl;
-
-  return 0;
-}
+class Solution1 {
+ public:
+  int countVowelStrings(int n) {
+    int ans = 1;
+    for (int i = 1; i <= 4; i++) { ans *= (n + i); }
+    return ans / 24;
+  }
+};
