@@ -61,11 +61,17 @@
  */
 #include "Header.h"
 // @lc code=start
-template <typename T> using umset = unordered_multiset<T>;
-template <typename T1, typename T2> using umap = unordered_map<T1, T2>;
-template <typename T> using v2 = vector<vector<T>>;
-template <typename T> using p2 = pair<T, T>;
-template <typename T> using v1 = vector<T>;
+#define myAnswer
+#ifdef myAnswer
+
+#  define MOD 1000000007
+#  define pb push_back
+#  define eb emplace_back
+#  define em emplace
+#  define mp make_pair
+#  define all(x) (x).begin(), (x).end()
+#  define fi first
+#  define se second
 
 using ld = long double;
 using ll = long long;
@@ -75,18 +81,65 @@ using pii = pair<int, int>;
 using pli = pair<ll, int>;
 using pll = pair<ll, ll>;
 
-#define MOD 1000000007
-#define pb push_back
-#define eb emplace_back
-#define mp make_pair
-#define all(x) (x).begin(), (x).end()
-#define fi first
-#define se second
+template <typename T> using v1 = vector<T>;
+template <typename T> using v2 = vector<vector<T>>;
+template <typename T> using uset = unordered_set<T>;
+template <typename T> using umset = unordered_multiset<T>;
+template <typename T1, typename T2> using p2 = pair<T1, T2>;
+template <typename T1, typename T2> using umap = unordered_map<T1, T2>;
 
 class Solution {
  public:
   vector<string> wordBreak(string s, vector<string>& wordDict) {
-    ;
+    int len = s.length(), n = wordDict.size();
+    uset<string> se{all(wordDict)};
+
+    vector<bool> dp(len, false);
+    dp[0] = se.count(string(1, s[0]));
+    for (int i = 1; i < len; i++) {
+      if (se.count(s.substr(0, i + 1))) {
+        dp[i] = true;
+        continue;
+      }
+
+      for (int j = 0; j < i; j++) {
+        if (dp[j] && se.count(s.substr(j + 1, i - j))) {
+          dp[i] = true;
+          break;
+        }
+      }
+    }
+    if (!dp[len - 1]) return {};
+
+    v1<string> ans;
+    v2<p2<string, int>> ss(len);
+
+    for (int i = 0; i < len; i++) {
+      for (int j = i; j < len; j++) {
+        string sub(s.substr(i, j - i + 1));
+        if (se.count(sub)) ss[i].eb(sub, j);
+      }
+    }
+
+    dfs(ss, ans, 0, "");
+
+    return ans;
+  }
+
+  void dfs(v2<p2<string, int>>& ss, v1<string>& ans, int i, string str) {
+    if (i == ss.size()) {
+      ans.eb(str);
+      return;
+    }
+    if (ss[i].empty()) return;
+
+    for (int k = 0; k < ss[i].size(); k++) {
+      string tmp = str.empty() ? ss[i][k].fi : (str + " " + ss[i][k].fi);
+      dfs(ss, ans, ss[i][k].se + 1, tmp);
+    }
   }
 };
+
+#endif
+#undef myAnswer
 // @lc code=end

@@ -6,26 +6,35 @@ using ull = unsigned long long;
 template <typename T> using umset = unordered_multiset<T>;
 template <typename T> using uset = unordered_set<T>;
 template <typename T1, typename T2> using umap = unordered_map<T1, T2>;
-template <typename T> using v2 = vector<vector<T>>;
 template <typename T> using v1 = vector<T>;
+template <typename T> using v2 = vector<vector<T>>;
+template <typename T1, typename T2> using p2 = pair<T1, T2>;
 
 class Solution {
  public:
-  int furthestBuilding(vector<int>& heights, int bricks, int ladders) {
-    int n = heights.size(), ans = 0;
-    if (n == 1) return 1;
+  int furthestBuilding(vector<int>& hei, int bricks, int ladders) {
+    int n = hei.size();
 
-    // return dfs(heights, 1, bricks, ladders, 1);
+    multiset<int> se;
+    for (int i = 1; i < n; i++) {
+      int h = hei[i] - hei[i - 1];
+      if (h > 0) {
+        if (ladders) {
+          se.emplace(h);
+          ladders--;
+        } else {
+          if (se.empty() || h <= *se.begin()) bricks -= h;
+          else {
+            bricks -= *se.begin();
+            se.erase(se.begin());
+            se.emplace(h);
+          }
+
+          if (bricks < 0) return i - 1;
+        }
+      }
+    }
+
+    return n - 1;
   }
-
-  //  int dfs(v1<int>& h, int i, int b, int l, int len) {
-  //    if (i == h.size()) return len - 1;
-  //    if (h[i] <= h[i - 1]) return dfs(h, i + 1, b, l, len + 1);
-  //    int d = h[i] - h[i - 1];
-  //    int r1 = 0, r2 = 0;
-  //    if (b - d > 0) r1 = dfs(h, i + 1, b - d, l, len + 1);
-  //    if (l > 0) r2 = dfs(h, i + 1, b, l - 1, len + 1);
-  //    len -= r1 == 0 && r2 == 0 ? 1 : 0;
-  //    return max({len, r1, r2});
-  //  }
 };
