@@ -9,6 +9,8 @@
 #include <cmath>
 #include <functional>
 //#include <hash_map>
+#include <cstdlib>
+#include <cstring>
 #include <iostream>
 #include <map>
 #include <queue>

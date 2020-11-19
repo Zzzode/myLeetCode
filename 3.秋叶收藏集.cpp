@@ -40,8 +40,7 @@ class Solution {
  public:
   int minimumOperations(string leaves) {
     vector<int> tmp(3);
-    for (int i = 0; i < 3; i++)
-      tmp[i] = leaves[i] != 'r';
+    for (int i = 0; i < 3; i++) tmp[i] = leaves[i] != 'r';
     int dp_0 = tmp[0] + tmp[1] + tmp[2];
     int dp_1 = tmp[0] + 1 - tmp[2];
     int dp_2 = tmp[0] + 1 - tmp[1] + tmp[2];

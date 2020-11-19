@@ -16,7 +16,7 @@
  * 给你一个字符串 num 和一个整数 k 。其中，num
  * 表示一个很大的整数，字符串中的每个字符依次对应整数上的各个 数位 。
  *
- * 你可以交换这个整数相邻数位的数字 最多 k 次。
+ * 你可以交换这个整数相邻数位的数字 最多`k`次。
  *
  * 请你返回你能得到的最小整数，并以字符串形式返回。
  *
@@ -75,11 +75,66 @@
  */
 #include "Header.h"
 // @lc code=start
-#define all(x) (x).begin(), (x).end()
+class BIT {
+ private:
+  vector<int> tree;
+  int n;
+
+ public:
+  explicit BIT(int _n) : n(_n), tree(_n + 1) {}
+
+  static int lowbit(int x) {
+    return x & (-x);
+  }
+
+  void update(int x) {
+    while (x <= n) {
+      ++tree[x];
+      x += lowbit(x);
+    }
+  }
+
+  [[nodiscard]] int query(int x) const {
+    int ans = 0;
+    while (x) {
+      ans += tree[x];
+      x -= lowbit(x);
+    }
+    return ans;
+  }
+
+  [[nodiscard]] int query(int x, int y) const {
+    return query(y) - query(x - 1);
+  }
+};
+
 class Solution {
  public:
   string minInteger(string num, int k) {
-    ;
+    int n = num.length();
+    vector<queue<int>> pos(10);
+    for (int i = 0; i < n; ++i) { pos[num[i] - '0'].push(i + 1); }
+
+    string ans;
+    BIT bit(n);
+    for (int i = 1; i <= n; ++i) {
+      for (int j = 0; j < 10; ++j) {
+        if (pos[j].empty()) continue;
+
+        int behind = bit.query(pos[j].front() + 1, n);
+        int dist = pos[j].front() + behind - i;
+        if (dist <= k) {
+          bit.update(pos[j].front());
+          pos[j].pop();
+          ans += (j + '0');
+          k -= dist;
+          break;
+        }
+      }
+    }
+    return ans;
   }
 };
+// 0345989723478563548
+// 0345989723478563548
 // @lc code=end
