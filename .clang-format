@@ -2,7 +2,7 @@
 Language: Cpp
 BasedOnStyle: Google
 
-AccessModifierOffset: -1
+AccessModifierOffset: -2
 AlignAfterOpenBracket: Align
 AlignConsecutiveAssignments: false
 AlignConsecutiveDeclarations: false
@@ -72,7 +72,7 @@ IncludeCategories:
 IndentCaseLabels: true
 
 IndentPPDirectives: AfterHash
-IndentWidth: 2
+IndentWidth: 4
 IndentWrappedFunctionNames: false
 KeepEmptyLinesAtTheStartOfBlocks: false
 MacroBlockBegin: ''

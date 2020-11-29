@@ -1,38 +1,38 @@
 #include "Header.h"
 
 class OrderedStream {
- public:
-  OrderedStream(int n) {
-    num = n;
-    ptr = 1;
-  }
-
-  vector<string> insert(int id, string value) {
-    ma[id] = value;
-    vector<string> res;
-    if (id == ptr) {
-      int tmp = id;
-      auto iter = ma.find(ptr);
-      iter++;
-      res.emplace_back(ma[id]);
-      while (iter != ma.end()) {
-        if (iter->first == tmp + 1) res.emplace_back(iter->second);
-        else
-          break;
-        tmp = iter->first;
-        iter++;
-      }
-      ptr = tmp + 1;
+public:
+    OrderedStream(int n) {
+        num = n;
+        ptr = 1;
     }
 
-    return res;
-  }
+    vector<string> insert(int id, string value) {
+        ma[id] = value;
+        vector<string> res;
+        if (id == ptr) {
+            int tmp = id;
+            auto iter = ma.find(ptr);
+            iter++;
+            res.emplace_back(ma[id]);
+            while (iter != ma.end()) {
+                if (iter->first == tmp + 1) res.emplace_back(iter->second);
+                else
+                    break;
+                tmp = iter->first;
+                iter++;
+            }
+            ptr = tmp + 1;
+        }
 
- private:
-  int ptr;
-  int num;
+        return res;
+    }
 
-  map<int, string> ma;
+private:
+    int ptr;
+    int num;
+
+    map<int, string> ma;
 };
 
 /**
