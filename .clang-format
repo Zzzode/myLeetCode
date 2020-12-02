@@ -72,7 +72,7 @@ IncludeCategories:
 IndentCaseLabels: true
 
 IndentPPDirectives: AfterHash
-IndentWidth: 4
+IndentWidth: 2
 IndentWrappedFunctionNames: false
 KeepEmptyLinesAtTheStartOfBlocks: false
 MacroBlockBegin: ''
@@ -109,5 +109,5 @@ SpacesInCStyleCastParentheses: false
 SpacesInParentheses: false
 SpacesInSquareBrackets: false
 Standard: c++20
-TabWidth: 4
+TabWidth: 2
 UseTab: Never

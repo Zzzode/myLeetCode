@@ -46,29 +46,36 @@ using pll = pair<ll, ll>;
 // ----------- solution ----------- //
 
 class Solution {
- public:
-  int canCompleteCircuit(vector<int>& gas, vector<int>& cost) {
-    int n = gas.size(), sum = 0, ans = -1;
-    v1<int> sp, st;
-    for (int i = 0; i < n; i++) {
-      sp.eb(gas[i] - cost[i]);
-      sum += sp[i];
-      if (sp[i] >= 0) st.eb(i);
-    }
-    if (sum < 0) return ans;
-
-    for (int i : st) {
-      int j = i, s = 0;
-      int k = gas.size();
-      while (k && s >= 0) {
-        s += sp[j];
-        k--, j = (j + 1) % n;
-      }
-      if (s >= 0) {
-        ans = i;
+public:
+  vector<int> searchRange(vector<int>& nums, int target) {
+    vector<int> ans(2, -1);
+    int n = nums.size();
+    int l = 0, r = n - 1;
+    while (l <= r) {
+      int mid = (l + r) / 2;
+      if (nums[mid] > target) {
+        r = mid - 1;
+      } else if (nums[mid] < target) {
+        l = mid + 1;
+      } else {
+        int lr = mid, rl = mid;
+        while (l <= lr || rl <= r) {
+          int midl = (l + lr) / 2, midr = (rl + r) / 2;
+          if (nums[midl] < target) {
+            l = midl + 1;
+          } else {
+            lr = midl - 1;
+          }
+          if (nums[midr] > target) {
+            r = midr - 1;
+          } else {
+            rl = midr + 1;
+          }
+        }
         break;
       }
     }
+    if (l <= r) ans[0] = l, ans[1] = r;
 
     return ans;
   }
@@ -76,9 +83,8 @@ class Solution {
 
 int main() {
   Solution solution{};
-  v1<int> gas{1, 2, 3, 4, 5};
-  v1<int> cost{3, 4, 5, 1, 2};
-  int ans = solution.canCompleteCircuit(gas, cost);
-  cout << ans << endl;
+  vector<int> nums{5,7,7,8,8,10};
+  vector<int> ans = solution.searchRange(nums, 8);
+//  cout << ans << endl;
   return 0;
 }
