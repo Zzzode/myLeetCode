@@ -47,44 +47,34 @@ using pll = pair<ll, ll>;
 
 class Solution {
 public:
-  vector<int> searchRange(vector<int>& nums, int target) {
-    vector<int> ans(2, -1);
-    int n = nums.size();
-    int l = 0, r = n - 1;
-    while (l <= r) {
-      int mid = (l + r) / 2;
-      if (nums[mid] > target) {
-        r = mid - 1;
-      } else if (nums[mid] < target) {
-        l = mid + 1;
-      } else {
-        int lr = mid, rl = mid;
-        while (l <= lr || rl <= r) {
-          int midl = (l + lr) / 2, midr = (rl + r) / 2;
-          if (nums[midl] < target) {
-            l = midl + 1;
-          } else {
-            lr = midl - 1;
-          }
-          if (nums[midr] > target) {
-            r = midr - 1;
-          } else {
-            rl = midr + 1;
-          }
-        }
-        break;
-      }
+  int minimumIncompatibility(vector<int>& nums, int k) {
+    int n = nums.size(), sz = n / k;
+    vector<int> ss(10, 0);
+    for(int i = 0; i < n; i++) ss[nums[i]]++;
+    int i = 0, ans = 0, cc = 0, l = 0;
+    while(i < 10 && k){
+      if (ss[i]) {
+        ss[i]--;
+        cc++;
+        if (cc == 1) l = i;
+        if (cc == sz) {
+          ans += i - l;
+          i = 0;
+          cc = 0;
+          k--;
+        } else
+          i++;
+      } else i++;
+      if (i == 10 && cc < sz) return -1;
     }
-    if (l <= r) ans[0] = l, ans[1] = r;
-
     return ans;
   }
 };
 
 int main() {
   Solution solution{};
-  vector<int> nums{5,7,7,8,8,10};
-  vector<int> ans = solution.searchRange(nums, 8);
-//  cout << ans << endl;
+  vector<int> nums{6,3,8,1,3,1,2,2};
+  int ans = solution.minimumIncompatibility(nums, 4);
+  cout << ans << endl;
   return 0;
 }
