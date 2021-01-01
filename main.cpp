@@ -47,34 +47,25 @@ using pll = pair<ll, ll>;
 
 class Solution {
 public:
-  int minimumIncompatibility(vector<int>& nums, int k) {
-    int n = nums.size(), sz = n / k;
-    vector<int> ss(10, 0);
-    for(int i = 0; i < n; i++) ss[nums[i]]++;
-    int i = 0, ans = 0, cc = 0, l = 0;
-    while(i < 10 && k){
-      if (ss[i]) {
-        ss[i]--;
-        cc++;
-        if (cc == 1) l = i;
-        if (cc == sz) {
-          ans += i - l;
-          i = 0;
-          cc = 0;
-          k--;
-        } else
-          i++;
-      } else i++;
-      if (i == 10 && cc < sz) return -1;
+  int maxResult(vector<int>& nums, int k) {
+    int n = nums.size();
+    vector<int> f(n);
+    f[0] = nums[0];
+    deque<int> q = {0};
+    for (int i = 1; i < n; ++i) {
+      while (i - q.front() > k) { q.pop_front(); }
+      f[i] = f[q.front()] + nums[i];
+      while (!q.empty() && f[i] >= f[q.back()]) { q.pop_back(); }
+      q.push_back(i);
     }
-    return ans;
+    return f[n - 1];
   }
 };
 
 int main() {
   Solution solution{};
-  vector<int> nums{6,3,8,1,3,1,2,2};
-  int ans = solution.minimumIncompatibility(nums, 4);
+  vector<int> nums{1,-5,-20,4,-1,3,-6,-3};
+  int ans = solution.maxResult(nums, 2);
   cout << ans << endl;
   return 0;
 }
