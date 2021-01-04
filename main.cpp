@@ -64,7 +64,7 @@ public:
 
 int main() {
   Solution solution{};
-  vector<int> nums{1,-5,-20,4,-1,3,-6,-3};
+  vector<int> nums{1, -5, -20, 4, -1, 3, -6, -3};
   int ans = solution.maxResult(nums, 2);
   cout << ans << endl;
   return 0;
